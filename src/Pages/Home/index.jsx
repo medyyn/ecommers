@@ -9,16 +9,16 @@ const Home = () => {
   return (
     <>
       <Navbar searchedText={searchedText} setSearchedText={setSearchedText} />
-      <div className="px-5 grid grid-cols-[200px_1fr]">
-        <Categories
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-        />
-        <Products
-          searchedText={searchedText}
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-        />
+      <div className="px-5 grid grid-cols-1 md:grid-cols-[250px_1fr]">
+          <Categories
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
+          <Products
+            searchedText={searchedText}
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
       </div>
     </>
   );
