@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Loading from "../Loading";
-const Products = () => {
+const Products = ({searchedText}) => {
   const url = import.meta.env.VITE_BACKEND_URL;
   const [products, SetProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(8);
   const [pages, SetPages] = useState(0);
@@ -17,6 +18,7 @@ const Products = () => {
       .get(url)
       .then(({ data }) => {
         SetProducts(data);
+        setFilteredProducts(data)
         SetPages(Math.ceil(data.length / count));
         setIsLoading(false);
       })
@@ -37,17 +39,23 @@ const Products = () => {
     setEndIndex(activePage * count);
   }, [activePage]);
 
+  useEffect(() => {
+    const filteredData = products.filter(({title}) => {
+      return title.toLowerCase().includes(searchedText.toLowerCase());
+    })
+    SetPages(Math.ceil(filteredData.length / count));
+    setFilteredProducts(filteredData)
+    setActivePage(1)
+  },[searchedText])
+
   if (isLoading) {
     return <Loading />;
   }
-  if (pages) {
-    console.log();
-  }
   return (
-    <>
-      {products.length > 0 ? (
+    <div className="flex flex-col">
+      {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-6 px-5">
-          {products
+          {filteredProducts
             .slice(startIndex, endIndex)
             .map(
               ({ id, title, category, price, description, images, slug }) => {
@@ -80,11 +88,11 @@ const Products = () => {
             )}
         </div>
       ) : (
-        <h2 className="text-2xl font-bold text-red-600 bg-gray-100 p-4 rounded-lg shadow-md">
+        <h2 className="text-2xl mt-4 font-bold text-red-600 bg-gray-100 p-4 rounded-lg shadow-md">
           İstədiyiniz məlumat tapılmadı
         </h2>
       )}
-      <div className="flex justify-center items-center space-x-2 mt-4">
+      <div className="flex justify-center items-center space-x-2 mt-4 mx-auto">
         {new Array(pages).fill("").map((_, index) => {
           return (
             <div
@@ -101,7 +109,7 @@ const Products = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
