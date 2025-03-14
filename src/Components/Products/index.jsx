@@ -16,6 +16,7 @@ const Products = () => {
         setIsLoading(false)
       })
       .catch((err) => {
+        setIsLoading(false)
         if (err.status === 404) {
           toast.error("backend ilə bağlı problem!");
         }
