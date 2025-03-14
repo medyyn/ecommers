@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
 import Loading from "../Loading";
-const Products = ({searchedText}) => {
+const Products = ({ searchedText, activeCategory, setActiveCategory }) => {
   const url = import.meta.env.VITE_BACKEND_URL;
   const [products, SetProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -18,7 +18,7 @@ const Products = ({searchedText}) => {
       .get(url)
       .then(({ data }) => {
         SetProducts(data);
-        setFilteredProducts(data)
+        setFilteredProducts(data);
         SetPages(Math.ceil(data.length / count));
         setIsLoading(false);
       })
@@ -40,13 +40,29 @@ const Products = ({searchedText}) => {
   }, [activePage]);
 
   useEffect(() => {
-    const filteredData = products.filter(({title}) => {
+    if ( activeCategory.toLowerCase() === "all"){
+      SetPages(Math.ceil(products.length / count));
+      setFilteredProducts(products);
+      setActivePage(1);
+    }else{
+      const filteredData = products.filter(({ category }) => {
+        return category.name.toLowerCase() === activeCategory.toLowerCase();
+      });
+      SetPages(Math.ceil(filteredData.length / count));
+      setFilteredProducts(filteredData);
+      setActivePage(1);
+    }
+  },[activeCategory])
+
+  useEffect(() => {
+    const filteredData = products.filter(({ title }) => {
       return title.toLowerCase().includes(searchedText.toLowerCase());
-    })
+    });
     SetPages(Math.ceil(filteredData.length / count));
-    setFilteredProducts(filteredData)
-    setActivePage(1)
-  },[searchedText])
+    setFilteredProducts(filteredData);
+    setActivePage(1);
+    setActiveCategory("All")
+  }, [searchedText]);
 
   if (isLoading) {
     return <Loading />;
@@ -88,7 +104,7 @@ const Products = ({searchedText}) => {
             )}
         </div>
       ) : (
-        <h2 className="text-2xl mt-4 font-bold text-red-600 bg-gray-100 p-4 rounded-lg shadow-md">
+        <h2 className="text-2xl mt-4 ml-3.5 font-bold text-red-600 bg-gray-100 p-4 rounded-lg shadow-md">
           İstədiyiniz məlumat tapılmadı
         </h2>
       )}
