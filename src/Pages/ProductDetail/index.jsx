@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../Components/Layout/Navbar";
 import { useParams } from "react-router";
 import axios from "axios";
+import Rating from "../../Components/Rating";
 
 const ProductDetail = () => {
   const { slug } = useParams();
@@ -40,6 +41,7 @@ const ProductDetail = () => {
           <h2 className="text-4xl font-bold text-slate-700">{product.title}</h2>
           <p className="text-gray-700 my-3 text-xl">{product.description}</p>
           <p className="text-3xl font-bold text-red-500">${product.price}</p>
+          <Rating />
         </div>
       </div>
     </>
