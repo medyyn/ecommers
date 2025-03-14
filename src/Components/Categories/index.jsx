@@ -10,7 +10,7 @@ const Categories = ({ activeCategory, setActiveCategory }) => {
     });
   }, []);
   return (
-    <div className="mt-5">
+    <div className="mt-6.5">
       <div
         className={` p-2 mb-2 rounded-sm text-white 
         cursor-pointer ${
