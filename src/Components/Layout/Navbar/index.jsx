@@ -4,7 +4,7 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { SlBasket } from "react-icons/sl";
 import { Link, NavLink } from "react-router";
 
-const Navbar = () => {
+const Navbar = ({searchedText, setSearchedText}) => {
   const [showMobile, SetShowMobile] = useState(false);
   const links = [
     { id: 0, title: "Home", path: "/" },
@@ -41,7 +41,12 @@ const Navbar = () => {
           id="input"
           type="text"
           placeholder="search"
-          className="px-3 py-[4px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-200 shadow-sm"
+          value={searchedText}
+          className="px-3 py-[4px] border border-gray-300 rounded-2xl 
+          focus:outline-none focus:ring-2 focus:ring-gray-500 
+          focus:border-transparent transition-all duration-200 shadow-sm
+          outline-0 placeholder:text-white"
+          onChange={(e) => setSearchedText(e.target.value)}
         />
         <Link to="/basket">
         <SlBasket />
