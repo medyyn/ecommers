@@ -2,6 +2,7 @@ import React from 'react'
 import Home from '../../Pages/Home'
 import ProductDetail from '../../Pages/ProductDetail'
 import { Route, Routes } from 'react-router'
+import NotFound from '../NotFound'
 
 const WebRoutes = () => {
     const routes = [
@@ -15,6 +16,7 @@ const WebRoutes = () => {
                 return <Route path={path} element={element} key={id}/>
             })
         }
+        <Route path='*' element={<NotFound/>}/>
     </Routes>
   )
 }
