@@ -49,7 +49,7 @@ const Navbar = ({searchedText, setSearchedText}) => {
           onChange={(e) => setSearchedText(e.target.value)}
         />
         <Link to="/basket">
-        <SlBasket />
+        <SlBasket className="text-2xl"/>
         </Link>
       </div>
       <div
