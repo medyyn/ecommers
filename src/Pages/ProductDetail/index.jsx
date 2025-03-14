@@ -5,12 +5,14 @@ import axios from "axios";
 import Rating from "../../Components/Rating";
 import toast from "react-hot-toast";
 import NotFound from "../../Components/NotFound";
+import Loading from "../../Components/Loading";
 
 const ProductDetail = () => {
   const { slug } = useParams();
   const [product, SetProduct] = useState({});
   const url = import.meta.env.VITE_BACKEND_URL;
   const [currentImage, setCurrentImage] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
     axios
       .get(url)
@@ -18,6 +20,7 @@ const ProductDetail = () => {
         const currentElement = data.find((e) => e.slug === slug);
         SetProduct(currentElement);
         setCurrentImage(currentElement.images[0]);
+        setIsLoading(false)
       })
       .catch((err) => {
         if (err.response?.status === 404) {
@@ -25,6 +28,9 @@ const ProductDetail = () => {
         }
       });
   }, []);
+  if(isLoading) {
+    return <Loading/>
+  }
   return (
     <>
       <Navbar />
