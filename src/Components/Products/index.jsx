@@ -2,24 +2,28 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router";
-import NotFound from "../NotFound";
+import Loading from "../Loading";
 const Products = () => {
   const url = import.meta.env.VITE_BACKEND_URL;
   const [products, SetProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get(url)
       .then(({ data }) => {
         SetProducts(data);
+        setIsLoading(false)
       })
       .catch((err) => {
         if (err.status === 404) {
-          toast.error("backend ile bagli problem!");
+          toast.error("backend ilə bağlı problem!");
         }
       });
   }, []);
-
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-6 px-5">
       {products.length > 0 ? (
@@ -53,7 +57,9 @@ const Products = () => {
           }
         )
       ) : (
-        <NotFound />
+        <h2 className="text-2xl font-bold text-red-600 bg-gray-100 p-4 rounded-lg shadow-md">
+          İstədiyiniz məlumat tapılmadı
+        </h2>
       )}
     </div>
   );
