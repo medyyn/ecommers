@@ -19,7 +19,7 @@ const Navbar = () => {
     >
       <div>
         <Link to="/" className="text-2xl font-bold">
-          NEM Boutique
+          Medyn Boutique
         </Link>
       </div>
       <div className="hidden md:flex gap-8 items-center">
@@ -62,7 +62,7 @@ const Navbar = () => {
       {showMobile && (
         <div
           className="flex flex-col md:hidden absolute top-[70px] bg-slate-600
-    text-white w-[300px] h-[calc(100vh-70px)] justify-center items-center gap-4 right-0"
+    text-white w-[300px] h-[calc(100vh-70px)] justify-center items-center gap-4 right-0 z-10"
         >
           {links.map(({id, title, path}) => {
           return (
