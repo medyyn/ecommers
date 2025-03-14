@@ -7,7 +7,7 @@ const Products = () => {
   const url = import.meta.env.VITE_BACKEND_URL;
   const [products, SetProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [count, setCount] = useState(4);
+  const [count, setCount] = useState(8);
   const [pages, SetPages] = useState(0);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
