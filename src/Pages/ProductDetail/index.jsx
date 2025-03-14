@@ -7,7 +7,7 @@ import Rating from "../../Components/Rating";
 const ProductDetail = () => {
   const { slug } = useParams();
   const [product, SetProduct] = useState({});
-  const url = "http://localhost:3000/products";
+  const url = import.meta.env.VITE_BACKEND_URL;
   const [currentImage, setCurrentImage] = useState("");
   useEffect(() => {
     axios.get(url).then(({ data }) => {
