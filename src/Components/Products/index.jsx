@@ -108,7 +108,7 @@ const Products = ({ searchedText, activeCategory, setActiveCategory }) => {
           İstədiyiniz məlumat tapılmadı
         </h2>
       )}
-      <div className="flex justify-center items-center space-x-2 mt-4 mx-auto">
+      <div className="flex justify-center items-center space-x-2 mt-4 mx-auto mb-4">
         {new Array(pages).fill("").map((_, index) => {
           return (
             <div
