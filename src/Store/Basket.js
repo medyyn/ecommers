@@ -8,6 +8,20 @@ const UseBasket = create((set) => ({
         return {
             basket: newBasket,
         }
+    }),
+    changeProductCount: (id, o) => set(state => {
+        const currentElement = state.basket.find((p) => p.id === id)
+        if (o === "+") {
+            currentElement.count += 1
+        } else if (o === "-"){
+            if (currentElement.count > 1){
+                currentElement.count -= 1
+            }
+        }
+        currentElement.totalPrice = currentElement.count * currentElement.price
+        return {
+            basket: [...state.basket],
+        }
     })
 }))
 
