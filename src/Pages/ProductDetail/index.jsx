@@ -12,7 +12,7 @@ const ProductDetail = () => {
   const [product, SetProduct] = useState({});
   const url = import.meta.env.VITE_BACKEND_URL;
   const [currentImage, setCurrentImage] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     axios
       .get(url)
