@@ -36,7 +36,7 @@ const Navbar = ({searchedText, setSearchedText}) => {
           );
         })}
       </div>
-      <div className="hidden md:flex gap-10 items-center">
+      <div className="hidden md:flex gap-14 items-center">
         <input
           id="input"
           type="text"
@@ -48,8 +48,9 @@ const Navbar = ({searchedText, setSearchedText}) => {
           outline-0 placeholder:text-white"
           onChange={(e) => setSearchedText(e.target.value)}
         />
-        <Link to="/basket">
-        <SlBasket className="text-2xl"/>
+        <Link to="/basket" className="relative">
+        <SlBasket className="text-3xl"/>
+        <span className="absolute top-[-15px] left-[-25px] bg-red-600 rounded-full w-6 h-6 flex justify-center items-center">0</span>
         </Link>
       </div>
       <div
