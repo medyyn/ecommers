@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiBars3CenterLeft } from "react-icons/hi2";
 import { LiaTimesSolid } from "react-icons/lia";
 import { SlBasket } from "react-icons/sl";
 import { Link, NavLink } from "react-router";
+import UseBasket from "../../../Store/BAsket";
 
-const Navbar = ({searchedText, setSearchedText}) => {
+const Navbar = ({ searchedText, setSearchedText }) => {
   const [showMobile, SetShowMobile] = useState(false);
+  const { basket } = UseBasket();
+  useEffect(() => {
+    localStorage.setItem("basket", JSON.stringify(basket))
+  },[basket])
   const links = [
     { id: 0, title: "Home", path: "/" },
     { id: 1, title: "About", path: "/about" },
@@ -23,9 +28,10 @@ const Navbar = ({searchedText, setSearchedText}) => {
         </Link>
       </div>
       <div className="hidden md:flex gap-8 items-center">
-        {links.map(({id, title, path}) => {
+        {links.map(({ id, title, path }) => {
           return (
-            <NavLink key={id}
+            <NavLink
+              key={id}
               className="relative before:content-[''] before:block before:w-[0%]
           before:h-[3px] before:rounded-2xl before:bg-white before:absolute before:bottom-[-5px]
           before:duration-500 hover:before:w-[100%]"
@@ -49,8 +55,10 @@ const Navbar = ({searchedText, setSearchedText}) => {
           onChange={(e) => setSearchedText(e.target.value)}
         />
         <Link to="/basket" className="relative">
-        <SlBasket className="text-3xl"/>
-        <span className="absolute top-[-15px] left-[-25px] bg-red-600 rounded-full w-6 h-6 flex justify-center items-center">0</span>
+          <SlBasket className="text-3xl" />
+          <span className="absolute top-[-15px] left-[-25px] bg-red-600 rounded-full w-6 h-6 flex justify-center items-center">
+            {basket.length}
+          </span>
         </Link>
       </div>
       <div
@@ -70,18 +78,19 @@ const Navbar = ({searchedText, setSearchedText}) => {
           className="flex flex-col md:hidden absolute top-[70px] bg-slate-600
     text-white w-[300px] h-[calc(100vh-70px)] justify-center items-center gap-4 right-0 z-10"
         >
-          {links.map(({id, title, path}) => {
-          return (
-            <Link key={id}
-              className="relative before:content-[''] before:block before:w-[0%]
+          {links.map(({ id, title, path }) => {
+            return (
+              <Link
+                key={id}
+                className="relative before:content-[''] before:block before:w-[0%]
           before:h-[3px] before:rounded-2xl before:bg-white before:absolute before:bottom-[-5px]
           before:duration-500 hover:before:w-[100%]"
-              to={path}
-            >
-              {title}
-            </Link>
-          );
-        })}
+                to={path}
+              >
+                {title}
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>
