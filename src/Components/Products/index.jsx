@@ -40,11 +40,11 @@ const Products = ({ searchedText, activeCategory, setActiveCategory }) => {
   }, [activePage]);
 
   useEffect(() => {
-    if ( activeCategory.toLowerCase() === "all"){
+    if (activeCategory.toLowerCase() === "all") {
       SetPages(Math.ceil(products.length / count));
       setFilteredProducts(products);
       setActivePage(1);
-    }else{
+    } else {
       const filteredData = products.filter(({ category }) => {
         return category.name.toLowerCase() === activeCategory.toLowerCase();
       });
@@ -52,7 +52,7 @@ const Products = ({ searchedText, activeCategory, setActiveCategory }) => {
       setFilteredProducts(filteredData);
       setActivePage(1);
     }
-  },[activeCategory])
+  }, [activeCategory]);
 
   useEffect(() => {
     const filteredData = products.filter(({ title }) => {
@@ -61,7 +61,7 @@ const Products = ({ searchedText, activeCategory, setActiveCategory }) => {
     SetPages(Math.ceil(filteredData.length / count));
     setFilteredProducts(filteredData);
     setActivePage(1);
-    setActiveCategory("All")
+    setActiveCategory("All");
   }, [searchedText]);
 
   if (isLoading) {
@@ -91,7 +91,7 @@ const Products = ({ searchedText, activeCategory, setActiveCategory }) => {
                       </h2>
                       <p className="my-2 line-clamp-2">{description}</p>
                       <p className="truncate font-bold text-red-600 text-xl">
-                        {price} AZN
+                        {price}$
                       </p>
                     </div>
                     <Link
