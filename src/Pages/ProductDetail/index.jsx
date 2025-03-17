@@ -15,7 +15,7 @@ const ProductDetail = () => {
   const [currentImage, setCurrentImage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isAddedBasket, setIsAddedBasket] = useState(false);
-  const {basket, addNewProduct} = UseBasket()
+  const { basket, addNewProduct } = UseBasket();
   useEffect(() => {
     axios
       .get(url)
@@ -23,8 +23,8 @@ const ProductDetail = () => {
         const currentElement = data.find((e) => e.slug === slug);
         SetProduct(currentElement);
         setCurrentImage(currentElement.images[0]);
-        basket.forEach(({id}) => {
-          currentElement.id === id && setIsAddedBasket(true)
+        basket.forEach(({ id }) => {
+          currentElement.id === id && setIsAddedBasket(true);
         });
         setIsLoading(false);
       })
@@ -38,10 +38,10 @@ const ProductDetail = () => {
     return <Loading />;
   }
   const addBasket = () => {
-    const data = {...product, count: 1, totalPrice: 0}
-    addNewProduct(data)
-    setIsAddedBasket(true)
-  }
+    const data = { ...product, count: 1, totalPrice: product.price };
+    addNewProduct(data);
+    setIsAddedBasket(true);
+  };
   return (
     <>
       <Navbar />
@@ -69,10 +69,10 @@ const ProductDetail = () => {
               {product.title}
             </h2>
             <p className="text-gray-700 my-3 text-xl">{product.description}</p>
-            <p className="text-3xl font-bold text-red-500">${product.price}</p>
+            <p className="text-3xl font-bold text-red-500">{product.price}$</p>
             <Rating />
             <button
-            onClick={addBasket}
+              onClick={addBasket}
               className={`mt-3 cursor-pointer text-white font-medium py-2 px-4 rounded-lg shadow-md transition duration-300 
               ${
                 isAddedBasket
